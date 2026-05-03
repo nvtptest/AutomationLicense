@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bravo Automation — License Admin</title>
+  <meta name="description" content="Admin panel for managing Bravo Automation Test licenses and releases">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Auth Screen -->
+    <div id="auth-screen" class="auth-screen">
+      <div class="auth-card">
+        <div class="auth-logo">🔐</div>
+        <h1 class="auth-title">Bravo License Admin</h1>
+        <p class="auth-subtitle">Nhập GitHub Personal Access Token để tiếp tục</p>
+        <div class="auth-form">
+          <input
+            type="password"
+            id="pat-input"
+            class="auth-input"
+            placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+            autocomplete="off"
+          >
+          <button id="auth-btn" class="auth-btn" onclick="authenticate()">
+            Đăng nhập
+          </button>
+        </div>
+        <p id="auth-error" class="auth-error" style="display:none"></p>
+        <p class="auth-hint">
+          Token cần quyền <code>repo</code> (hoặc <code>contents: write</code>)
+        </p>
+      </div>
+    </div>
+
+    <!-- Main App (hidden until authenticated) -->
+    <div id="main-app" class="main-app" style="display:none">
+      <!-- Header -->
+      <header class="admin-header">
+        <div class="admin-header-left">
+          <span class="admin-logo">🔑</span>
+          <h1 class="admin-title">Bravo License Admin</h1>
+        </div>
+        <div class="admin-header-right">
+          <span id="connection-status" class="connection-badge">Connected</span>
+          <button class="admin-btn ghost" onclick="logout()">Đăng xuất</button>
+        </div>
+      </header>
+
+      <!-- Tabs -->
+      <nav class="admin-tabs">
+        <button class="tab-btn active" data-tab="pending" onclick="switchTab('pending')">
+          ⏳ Yêu cầu chờ duyệt
+          <span id="pending-count" class="tab-badge">0</span>
+        </button>
+        <button class="tab-btn" data-tab="licensed" onclick="switchTab('licensed')">
+          ✅ Máy đã cấp phép
+          <span id="licensed-count" class="tab-badge">0</span>
+        </button>
+        <button class="tab-btn" data-tab="version" onclick="switchTab('version')">
+          📦 Quản lý phiên bản
+        </button>
+      </nav>
+
+      <!-- Tab Content -->
+      <main class="admin-content">
+        <!-- Pending Tab -->
+        <div id="tab-pending" class="tab-panel active">
+          <div class="panel-header">
+            <h2>Yêu cầu cấp phép đang chờ</h2>
+            <button class="admin-btn secondary" onclick="refreshData()">🔄 Refresh</button>
+          </div>
+          <div id="pending-list" class="item-list">
+            <div class="empty-state">
+              <p>Đang tải dữ liệu...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Licensed Tab -->
+        <div id="tab-licensed" class="tab-panel">
+          <div class="panel-header">
+            <h2>Máy đã được cấp phép</h2>
+            <button class="admin-btn secondary" onclick="refreshData()">🔄 Refresh</button>
+          </div>
+          <div id="licensed-list" class="item-list">
+            <div class="empty-state">
+              <p>Đang tải dữ liệu...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Version Tab -->
+        <div id="tab-version" class="tab-panel">
+          <div class="panel-header">
+            <h2>Quản lý phiên bản</h2>
+          </div>
+          <div class="version-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Phiên bản hiện tại</label>
+                <input type="text" id="current-version" class="form-input" readonly>
+              </div>
+              <div class="form-group">
+                <label>Ngày phát hành</label>
+                <input type="text" id="current-release-date" class="form-input" readonly>
+              </div>
+            </div>
+
+            <hr class="divider">
+
+            <h3>Cập nhật phiên bản mới</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Phiên bản mới *</label>
+                <input type="text" id="new-version" class="form-input" placeholder="e.g. 4.1.0">
+              </div>
+              <div class="form-group">
+                <label>Download URL *</label>
+                <input type="text" id="new-download-url" class="form-input" placeholder="https://github.com/.../releases/download/...">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Mô tả cập nhật</label>
+              <textarea id="new-description" class="form-textarea" rows="4" placeholder="- Fix bug xxx&#10;- Thêm tính năng yyy"></textarea>
+            </div>
+            <div class="form-actions">
+              <button class="admin-btn primary" onclick="updateVersion()">💾 Lưu phiên bản mới</button>
+            </div>
+
+            <hr class="divider">
+
+            <h3>Lịch sử phiên bản</h3>
+            <div id="changelog-list" class="changelog-list">
+              <p class="empty-text">Chưa có lịch sử</p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
