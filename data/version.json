@@ -2,15 +2,15 @@
     "changelog":  [
                       {
                           "date":  "2026-05-03",
-                          "version":  "4.0.0",
+                          "version":  "4.0.1",
                           "changes":  [
-                                          "Release v4.0.0"
+                                          "Release v4.0.1"
                                       ]
                       }
                   ],
-    "version":  "4.0.0",
-    "description":  "Release v4.0.0",
-    "downloadUrl":  "https://github.com/nvtptest/AutomationLicense/releases/download/v4.0.0/BravoAutomationTest-4.0.0-win-x64.zip",
+    "version":  "4.0.1",
+    "description":  "Release v4.0.1",
+    "downloadUrl":  "https://github.com/nvtptest/AutomationLicense/releases/download/v4.0.1/BravoAutomationTest-4.0.1-win-x64.zip",
     "releaseDate":  "2026-05-03",
     "minVersion":  "4.0.0"
 }
