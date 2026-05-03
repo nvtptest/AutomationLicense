@@ -1,8 +1,8 @@
 {
   "version": "4.0.0",
   "releaseDate": "2026-05-03",
-  "description": "- Initial release\n- Visual Flow Builder\n- Playwright Runner\n- Performance Dashboard",
-  "downloadUrl": "",
+  "description": "- Initial release\n- Visual Flow Builder với 22 action types\n- Playwright Runner với breakpoint debugging\n- Performance Dashboard & Comparison\n- License Management & Auto-Update",
+  "downloadUrl": "https://github.com/nvtptest/AutomationLicense/releases/download/v4.0.0/BravoAutomationTest-4.0.0-win-x64.zip",
   "minVersion": "4.0.0",
   "changelog": [
     {
@@ -12,7 +12,8 @@
         "Initial release",
         "Visual Flow Builder với 22 action types",
         "Playwright Runner với breakpoint debugging",
-        "Performance Dashboard & Comparison"
+        "Performance Dashboard & Comparison",
+        "License Management & Auto-Update"
       ]
     }
   ]
